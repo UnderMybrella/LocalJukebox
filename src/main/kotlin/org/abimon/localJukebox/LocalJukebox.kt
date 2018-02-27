@@ -4,12 +4,12 @@ import org.abimon.localJukebox.controller.ConsoleController
 import org.abimon.localJukebox.controller.IController
 import org.abimon.localJukebox.model.IModel
 import org.abimon.localJukebox.model.JukeboxDriver
-import org.abimon.localJukebox.view.ConsoleView
 import org.abimon.localJukebox.view.IView
+import org.abimon.localJukebox.view.SystemAudioOutputView
 
 object LocalJukebox {
     lateinit var model: IModel
-    lateinit var view: IView
+    lateinit var views: Array<IView>
     lateinit var controller: IController
 
     @JvmStatic
@@ -19,7 +19,7 @@ object LocalJukebox {
 
     fun setup(args: Array<String>) {
         model = JukeboxDriver
-        view = ConsoleView
+        views = arrayOf(SystemAudioOutputView)
         controller = ConsoleController
     }
 }

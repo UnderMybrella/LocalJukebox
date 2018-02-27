@@ -7,8 +7,8 @@ import org.abimon.localJukebox.view.IView
 interface IController {
     val model: IModel
         get() = LocalJukebox.model
-    val view: IView
-        get() = LocalJukebox.view
+    val views: Array<IView>
+        get() = LocalJukebox.views
 
     var isActive: Boolean
 }

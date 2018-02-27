@@ -5,12 +5,13 @@ import com.sedmelluq.discord.lavaplayer.format.AudioDataFormatTools
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
+import org.abimon.localJukebox.model.InfiniteJukeboxTrack
 import javax.sound.sampled.AudioFormat
 import javax.sound.sampled.AudioSystem
 import javax.sound.sampled.DataLine
 import javax.sound.sampled.SourceDataLine
 
-object ConsoleView: IView {
+object SystemAudioOutputView: IView {
     override var isActive: Boolean
         get() = _isActive
         set(value) {
@@ -39,6 +40,13 @@ object ConsoleView: IView {
     private var playing: Job?
     private var _isActive: Boolean = true
 
+    override fun newTrackPlaying(track: InfiniteJukeboxTrack) {}
+    override fun trackStoppedPlaying(track: InfiniteJukeboxTrack?) {}
+    override fun trackPaused() {}
+    override fun trackUnpaused() {}
+    override fun stopLooping() {}
+    override fun startLooping() {}
+
     init {
         format = model.manager.configuration.outputFormat
         jdkFormat = AudioDataFormatTools.toAudioFormat(format)
@@ -50,7 +58,7 @@ object ConsoleView: IView {
 
         playing = launch {
             while (isActive) {
-                while (model.audioFrames.size < 2) delay(10)
+                while (model.audioFrames.size < 2 || model.isPaused) delay(10)
 
                 val data = model.audioFrames.poll()?.data ?: continue
                 line.write(data, 0, data.size)

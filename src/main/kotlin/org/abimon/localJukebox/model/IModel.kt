@@ -5,23 +5,27 @@ import com.sedmelluq.discord.lavaplayer.track.playback.AudioFrame
 import org.abimon.localJukebox.LocalJukebox
 import org.abimon.localJukebox.controller.IController
 import org.abimon.localJukebox.view.IView
+import java.io.File
 import java.util.*
 
 interface IModel {
-    val view: IView
-        get() = LocalJukebox.view
+    val views: Array<IView>
+        get() = LocalJukebox.views
     val controller: IController
         get() = LocalJukebox.controller
 
     val manager: AudioPlayerManager
 
-    val currentTrack: InfiniteJukeboxTrack?
+    var currentTrack: InfiniteJukeboxTrack?
     val beatMap: Map<InfiniteJukeboxBeat, Array<AudioFrame>>
     val audioFrames: Queue<AudioFrame>
 
-    val continueLooping: Boolean
-    val loopBranchPercentage: Int
-    val isPaused: Boolean
+    var continueLooping: Boolean
+    var loopBranchPercentage: Int
+    var isPaused: Boolean
 
     var isActive: Boolean
+
+    val cachedAnalysisFiles: Array<File>
+    val cachedAudioFiles: Array<File>
 }

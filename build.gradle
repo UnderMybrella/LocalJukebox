@@ -4,6 +4,8 @@ buildscript {
     ext.lavaplayer_version = '1.2.53'
     ext.jackson_version = '2.9.4'
     ext.coroutines_version = '0.22.3'
+    ext.rpc_version = 'v1.3.3'
+
     ext.imperator_build = '7'
 
     repositories {
@@ -25,6 +27,7 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
     jcenter()
+    maven { url 'https://jitpack.io' }
     maven { url "https://maven.abimon.org" }
 }
 
@@ -43,6 +46,8 @@ dependencies {
     compile "com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version"
 
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+
+    compile "com.github.MinnDevelopment:java-discord-rpc:$rpc_version"
 
     compile ("org.abimon:Imperator:$imperator_build") { exclude group: 'org.jetbrains.kotlin', module: '*' }
 
